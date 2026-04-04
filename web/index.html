@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jayzen — Your AI Productivity Agent</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Auth Banner -->
+  <div id="auth-banner" class="auth-banner hidden">
+    <span>⚡ Connect your Google account to unlock Jayzen's full power</span>
+    <a href="/auth/google" class="auth-btn">Connect Google</a>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">🤖</span>
+      <span class="logo-text">Jayzen</span>
+      <span class="logo-tag">AI</span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-tab="chat">
+        <span>💬</span> Chat
+      </button>
+      <button class="nav-item" data-tab="emails">
+        <span>📧</span> Emails
+      </button>
+      <button class="nav-item" data-tab="calendar">
+        <span>📅</span> Calendar
+      </button>
+      <button class="nav-item" data-tab="reminders">
+        <span>⏰</span> Reminders
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div id="auth-status" class="auth-status">
+        <span class="status-dot disconnected"></span>
+        <span id="auth-label">Not connected</span>
+      </div>
+      <button id="auth-toggle" class="connect-btn">Connect Google</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Chat Tab -->
+    <div id="tab-chat" class="tab active">
+      <div class="tab-header">
+        <h1>Chat with Jayzen</h1>
+        <p>Your AI productivity agent — on lock 24/7 🔒</p>
+      </div>
+
+      <div class="chat-window" id="chat-window">
+        <div class="message agent">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            Hey! I'm Jayzen, your personal AI productivity agent. I can help you manage your emails, calendar, and reminders. What do you need? ⚡
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="quick-actions">
+          <button class="quick-btn" data-msg="Summarize my recent emails">📧 Emails</button>
+          <button class="quick-btn" data-msg="What's on my calendar this week?">📅 Schedule</button>
+          <button class="quick-btn" data-msg="Show my reminders">⏰ Reminders</button>
+        </div>
+        <div class="input-row">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask Jayzen anything..."
+            autocomplete="off"
+          />
+          <button id="send-btn">Send ⚡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emails Tab -->
+    <div id="tab-emails" class="tab">
+      <div class="tab-header">
+        <h1>Inbox</h1>
+        <p>Your recent emails, summarized by Jayzen</p>
+      </div>
+      <button class="action-btn" id="fetch-emails">🔄 Fetch Emails</button>
+      <div id="emails-list" class="cards-list"></div>
+    </div>
+
+    <!-- Calendar Tab -->
+    <div id="tab-calendar" class="tab">
+      <div class="tab-header">
+        <h1>Calendar</h1>
+        <p>Your upcoming events</p>
+      </div>
+      <div class="calendar-actions">
+        <button class="action-btn" id="fetch-events">🔄 Fetch Events</button>
+        <button class="action-btn secondary" id="show-add-event">+ Add Event</button>
+      </div>
+
+      <!-- Add Event Form -->
+      <div id="add-event-form" class="form-card hidden">
+        <h3>New Event</h3>
+        <input type="text" id="event-title" placeholder="Event title" />
+        <input type="datetime-local" id="event-start" />
+        <input type="datetime-local" id="event-end" />
+        <input type="text" id="event-location" placeholder="Location (optional)" />
+        <div class="form-actions">
+          <button class="action-btn" id="create-event">Create Event</button>
+          <button class="action-btn secondary" id="cancel-event">Cancel</button>
+        </div>
+      </div>
+
+      <div id="events-list" class="cards-list"></div>
+    </div>
+
+    <!-- Reminders Tab -->
+    <div id="tab-reminders" class="tab">
+      <div class="tab-header">
+        <h1>Reminders</h1>
+        <p>Never miss a thing</p>
+      </div>
+
+      <!-- Add Reminder Form -->
+      <div class="form-card">
+        <h3>New Reminder</h3>
+        <input type="text" id="reminder-text" placeholder="What do you want to be reminded about?" />
+        <input type="time" id="reminder-time" />
+        <button class="action-btn" id="add-reminder">Set Reminder ⏰</button>
+      </div>
+
+      <div id="reminders-list" class="cards-list"></div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

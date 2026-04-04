@@ -1,21 +1,19 @@
 {
   "name": "jayzen",
-  "module": "index.ts",
+  "version": "1.0.0",
+  "description": "Personal AI productivity agent built with ElizaOS & Nosana",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
   },
   "dependencies": {
-    "@elizaos/core": "^2.0.0-alpha.77",
     "cors": "^2.8.6",
     "dotenv": "^17.4.0",
     "express": "^5.2.1",
     "google-auth-library": "^10.6.2",
     "googleapis": "^171.4.0",
-    "node-cron": "^4.2.1"
+    "node-cron": "^4.2.1",
+    "@elizaos/core": "^2.0.0-alpha.77"
   }
 }
