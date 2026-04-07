@@ -15,5 +15,8 @@
     "googleapis": "^171.4.0",
     "node-cron": "^4.2.1",
     "@elizaos/core": "^2.0.0-alpha.77"
+  },
+  "devDependencies": {
+    "@elizaos/cli": "^1.7.2"
   }
 }
