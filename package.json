@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "node --watch server/index.js"
+    "dev": "node --watch server/index.js",
+    "elizaos:dev": "elizaos dev"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -20,3 +21,4 @@
     "@elizaos/cli": "^1.7.2"
   }
 }
+

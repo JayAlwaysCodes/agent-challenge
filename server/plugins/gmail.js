@@ -1,17 +1,17 @@
 import { google } from "googleapis";
 
-// Get recent emails
-export async function getEmails(auth, maxResults = 5) {
+export async function getEmails(auth, maxResults = 5000, unreadOnly = false) {
   try {
     const gmail = google.gmail({ version: "v1", auth });
 
     const response = await gmail.users.messages.list({
       userId: "me",
       maxResults,
-      labelIds: ["INBOX"],
+      labelIds: unreadOnly ? ["INBOX", "UNREAD"] : ["INBOX"],
     });
 
     const messages = response.data.messages || [];
+    const resultSizeEstimate = response.data.resultSizeEstimate || 0;
 
     const emails = await Promise.all(
       messages.map(async (msg) => {
@@ -23,8 +23,8 @@ export async function getEmails(auth, maxResults = 5) {
         });
 
         const headers = detail.data.payload.headers;
-        const get = (name) =>
-          headers.find((h) => h.name === name)?.value || "";
+        const get = (name) => headers.find((h) => h.name === name)?.value || "";
+        const isUnread = detail.data.labelIds?.includes("UNREAD") || false;
 
         return {
           id: msg.id,
@@ -32,22 +32,21 @@ export async function getEmails(auth, maxResults = 5) {
           subject: get("Subject"),
           date: get("Date"),
           snippet: detail.data.snippet,
+          isUnread,
         };
       })
     );
 
-    return emails;
+    return { emails, total: resultSizeEstimate };
   } catch (error) {
     console.error("Gmail error:", error.message);
-    return [];
+    return { emails: [], total: 0 };
   }
 }
 
-// Send an email
 export async function sendEmail(auth, { to, subject, body }) {
   try {
     const gmail = google.gmail({ version: "v1", auth });
-
     const message = [
       `To: ${to}`,
       `Subject: ${subject}`,
@@ -71,21 +70,5 @@ export async function sendEmail(auth, { to, subject, body }) {
   } catch (error) {
     console.error("Send email error:", error.message);
     return { success: false, error: error.message };
-  }
-}
-
-// Get email count by label
-export async function getEmailCount(auth, label = "UNREAD") {
-  try {
-    const gmail = google.gmail({ version: "v1", auth });
-    const response = await gmail.users.messages.list({
-      userId: "me",
-      labelIds: [label],
-      maxResults: 1,
-    });
-    return response.data.resultSizeEstimate || 0;
-  } catch (error) {
-    console.error("Email count error:", error.message);
-    return 0;
   }
 }
