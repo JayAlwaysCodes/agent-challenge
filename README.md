@@ -34,7 +34,7 @@ Jayzen is a personal AI productivity agent that manages your Gmail, Google Calen
 ## 🚀 Setup
 
 ### Prerequisites
-- Node.js v20+
+- ElizaOS V2
 - Bun
 - Google Cloud account
 - Nosana account (for compute credits)
